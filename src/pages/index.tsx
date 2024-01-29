@@ -1,5 +1,8 @@
 import Head from "next/head";
 
+import { TodoListPage } from "@/templates/TodoListPage";
+import { TaskProvider } from "@/taskContext";
+
 export default function Home() {
   return (
     <>
@@ -10,7 +13,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Hello</h1>
+        <TaskProvider>
+          <TodoListPage />
+        </TaskProvider>
       </main>
     </>
   );
