@@ -4,7 +4,7 @@ export const PageContainer = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 2rem auto 0;
   max-height: 100vh;
   max-width: 40rem;
   overflow: hidden;

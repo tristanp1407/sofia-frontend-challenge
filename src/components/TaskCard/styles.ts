@@ -42,7 +42,7 @@ export const ButtonContainer = styled.div`
   transform: translate(0, -50%);
   border-radius: 999rem;
   padding: 1rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.background.white};
 
   ${Container}:hover & {
     display: flex;

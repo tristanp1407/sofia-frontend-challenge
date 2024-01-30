@@ -29,8 +29,8 @@ export const TodoListPage: React.FunctionComponent = () => {
   return (
     <>
       <Styled.PageContainer>
-        <Typography variant="h3" textTransform="uppercase" align="center">
-          Your Todos
+        <Typography variant="h4" align="center">
+          Your Tasks
         </Typography>
 
         <Box mt={3} mb={2} ml={0} mr="auto">
