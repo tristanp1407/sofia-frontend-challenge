@@ -9,9 +9,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Close from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 
+import { useTasks } from "@/taskContext";
 import { Task } from "@/types";
 import { Flex } from "@components/Flex";
-import { useTasks } from "@/taskContext";
 
 import * as Styled from "./styles";
 
@@ -24,8 +24,12 @@ type TaskEditModelProps = {
 };
 
 const taskSchema = yup.object().shape({
-  title: yup.string().min(1, "Title is required").required("Title is required"),
-  description: yup.string().nullable().max(256, "Description too long"),
+  title: yup
+    .string()
+    .min(1, "Title is required")
+    .max(50, "Title is too long")
+    .required("Title is required"),
+  description: yup.string().max(256, "Description too long").nullable(),
   dueDate: yup.string().nullable(),
   dueTime: yup.string().nullable(),
 });

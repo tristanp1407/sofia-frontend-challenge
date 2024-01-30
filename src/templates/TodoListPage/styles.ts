@@ -8,7 +8,7 @@ export const PageContainer = styled.div`
   max-height: 100vh;
   max-width: 40rem;
   overflow: hidden;
-  /* padding: 1rem; */
+  padding: 0 1rem;
 `;
 
 export const NoTasksContainer = styled.div`

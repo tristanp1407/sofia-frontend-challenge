@@ -1,33 +1,61 @@
 import styled from "styled-components";
+import MuiIconButton from "@mui/material/IconButton";
 import MuiCheckbox from "@mui/material/Checkbox";
 
 import { Typography } from "@components/Typography";
 
 export const Container = styled.div`
+  align-items: center;
   background-color: ${(p) => p.theme.colors.background.white};
   border-radius: 1rem;
   display: flex;
   justify-content: space-between;
   padding: 1rem;
+  position: relative;
 `;
 
 export const Description = styled(Typography)`
   overflow: hidden;
   margin: 0;
-  max-width: 20rem;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 25rem;
+
+  @media (max-width: 768px) {
+    max-width: 20rem;
+  }
+
+  @media (max-width: 576px) {
+    max-width: 15rem;
+  }
+
+  @media (max-width: 375px) {
+    max-width: 10rem;
+  }
 `;
 
-export const IconButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
+export const ButtonContainer = styled.div`
   display: none;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  border-radius: 999rem;
+  padding: 1rem;
+  background-color: white;
 
   ${Container}:hover & {
-    display: block;
+    display: flex;
   }
+`;
+
+export const IconButton = styled(MuiIconButton)`
+  height: fit-content;
+  width: fit-content;
+`;
+
+export const Checkbox = styled(MuiCheckbox)`
+  height: fit-content;
 `;
 
 export const Pill = styled.div`

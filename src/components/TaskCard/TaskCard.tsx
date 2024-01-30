@@ -74,7 +74,7 @@ export const TaskCard: React.FunctionComponent<TaskCardProps> = (task) => {
             )}
           </div>
         </Flex>
-        <Flex>
+        <Styled.ButtonContainer>
           <Styled.IconButton onClick={() => setModalState("update")}>
             <EditOutlined />
           </Styled.IconButton>
@@ -82,7 +82,7 @@ export const TaskCard: React.FunctionComponent<TaskCardProps> = (task) => {
           <Styled.IconButton onClick={handleRemoveTask}>
             <DeleteOutline />
           </Styled.IconButton>
-        </Flex>
+        </Styled.ButtonContainer>
       </Styled.Container>
     </>
   );
