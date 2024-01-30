@@ -5,8 +5,7 @@ export const Wrapper = styled.div`
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 3rem;
+  padding: 4rem 3rem 2rem;
   max-width: 500px;
   max-height: fit-content;
   position: absolute;
@@ -17,8 +16,12 @@ export const Wrapper = styled.div`
 `;
 
 export const CloseButton = styled.button`
-  border: none;
   background: none;
-  margin: 0 0 0 auto;
+  border: none;
+  cursor: pointer;
+  margin: 1rem;
+  position: absolute;
+  top: 0;
+  right: 0;
   width: fit-content;
 `;

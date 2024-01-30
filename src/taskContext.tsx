@@ -10,24 +10,19 @@ import { Task } from "@/types";
 import { TASKS_LOCAL_STORAGE_ITEM_NAME, initialTasks } from "@/constants";
 import { generateRandomId } from "@utils/generateRandomId";
 
-// Task props with only id required
-type UpdateTaskProps = {
-  id: Task["id"];
-} & Partial<Omit<Task, "id">>;
-
 // TODO: Fix type
 type AddTaskProps = {
   title: string;
-  description: string;
-  completed: boolean;
-  dueDateTime: Date;
+  description?: string;
+  dueDate?: string;
+  dueTime?: string;
 };
 
 // Define the type for the context value
 type TaskContextType = {
   tasks: Task[];
   addTask: (task: AddTaskProps) => void;
-  updateTask: (task: UpdateTaskProps) => void;
+  updateTask: (task: Task) => void;
   removeTask: (taskId: string) => void;
 };
 
@@ -62,10 +57,10 @@ export const TaskProvider = ({ children }: TaskProviderProps) => {
   const addTask = (newTask: AddTaskProps) => {
     const taskId = generateRandomId();
 
-    setTasks([...tasks, { ...newTask, id: taskId }]);
+    setTasks([...tasks, { ...newTask, id: taskId, completed: false }]);
   };
 
-  const updateTask = (updatedTask: UpdateTaskProps) =>
+  const updateTask = (updatedTask: Task) =>
     setTasks(
       tasks.map((task) =>
         task.id === updatedTask.id ? { ...task, ...updatedTask } : task

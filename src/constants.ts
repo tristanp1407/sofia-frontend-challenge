@@ -1,25 +1,27 @@
+import { Task } from "@/types";
+
 export const TASKS_LOCAL_STORAGE_ITEM_NAME = "todos";
 
-export const initialTasks = [
+export const initialTasks: Task[] = [
   {
     id: "1",
-    title: "Task 1",
-    description: "Description 1",
+    title: "Buy groceries",
+    description: "Milk, eggs, bread",
     completed: false,
-    dueDateTime: new Date(),
+    dueDate: "2024-03-24",
+    dueTime: "15:50",
   },
   {
     id: "2",
-    title: "Task 2",
-    description: "Description 2",
+    title: "Finish project",
+    description: "Complete the final report",
     completed: false,
-    dueDateTime: new Date(),
+    dueDate: "2024-03-24",
   },
   {
     id: "3",
-    title: "Task 3",
-    description: "Description 3",
+    title: "Exercise",
+    description: "Go for a run",
     completed: true,
-    dueDateTime: new Date(),
   },
 ];

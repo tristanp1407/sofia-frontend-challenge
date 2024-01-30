@@ -8,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         font-family: 'Work Sans', sans-serif;
-        background: linear-gradient(${theme.background.primary}, ${theme.background.secondary});
+        background: linear-gradient(${theme.colors.background.primary}, ${theme.colors.background.secondary});
         height: 100vh;
     }
 `;
