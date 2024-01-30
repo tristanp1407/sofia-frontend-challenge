@@ -65,4 +65,6 @@ export interface FlexProps {
 export const Flex: React.FunctionComponent<FlexProps> = ({
   children,
   ...restProps
-}) => <StyledFlex {...restProps}>{children}</StyledFlex>;
+}) => {
+  return <StyledFlex {...restProps}>{children}</StyledFlex>;
+};

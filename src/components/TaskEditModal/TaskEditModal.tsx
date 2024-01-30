@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as yup from "yup";
 import { DateTime } from "luxon";
 import { useForm } from "react-hook-form";
@@ -7,11 +7,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Close from "@mui/icons-material/Close";
+import Box from "@mui/material/Box";
 
 import { Task } from "@/types";
 import { Flex } from "@components/Flex";
 import { useTasks } from "@/taskContext";
-import { Box } from "@mui/material";
 
 import * as Styled from "./styles";
 
@@ -24,8 +24,8 @@ type TaskEditModelProps = {
 };
 
 const taskSchema = yup.object().shape({
-  title: yup.string().required("Title is required"),
-  description: yup.string().nullable(),
+  title: yup.string().min(1, "Title is required").required("Title is required"),
+  description: yup.string().nullable().max(256, "Description too long"),
   dueDate: yup.string().nullable(),
   dueTime: yup.string().nullable(),
 });
@@ -35,11 +35,16 @@ export const TaskEditModal: React.FunctionComponent<TaskEditModelProps> = ({
   state,
   onClose,
 }) => {
+  // check window defined
+  if (typeof window === "undefined") return;
+
   const { addTask, updateTask } = useTasks();
 
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(taskSchema),
@@ -49,7 +54,17 @@ export const TaskEditModal: React.FunctionComponent<TaskEditModelProps> = ({
       dueDate: task?.dueDate,
       dueTime: task?.dueTime,
     },
+    mode: "onChange",
   });
+
+  const { dueTime, dueDate } = watch();
+
+  // If the user selects a due time but not a due date, set the due date to today
+  useEffect(() => {
+    if (dueTime && !dueDate) {
+      setValue("dueDate", DateTime.now().toFormat("yyyy-MM-dd"));
+    }
+  }, [dueTime]);
 
   const handleSaveTask = handleSubmit((data) => {
     const formattedDate = data.dueDate
@@ -94,7 +109,7 @@ export const TaskEditModal: React.FunctionComponent<TaskEditModelProps> = ({
           />
 
           <TextField
-            label="Description"
+            label="Description (Optional)"
             type="textarea"
             variant="outlined"
             error={!!errors.description}
@@ -107,7 +122,7 @@ export const TaskEditModal: React.FunctionComponent<TaskEditModelProps> = ({
 
           <Flex gap={1} justifyContent="space-between">
             <TextField
-              label="Due Date"
+              label="Due Date (Optional)"
               type="date"
               defaultValue={task?.dueDate}
               variant="outlined"
@@ -119,7 +134,7 @@ export const TaskEditModal: React.FunctionComponent<TaskEditModelProps> = ({
               InputLabelProps={{ shrink: true }}
             />
             <TextField
-              label="Due Time"
+              label="Due Time (Optional)"
               type="time"
               defaultValue={task?.dueTime}
               variant="outlined"

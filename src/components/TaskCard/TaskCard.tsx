@@ -46,7 +46,7 @@ export const TaskCard: React.FunctionComponent<TaskCardProps> = (task) => {
       />
 
       <Styled.Container>
-        <Flex alignItems="center" gap={2}>
+        <Flex gap={2}>
           <Checkbox
             defaultChecked={completed}
             value={completed}

@@ -15,38 +15,56 @@ export const TodoListPage: React.FunctionComponent = () => {
 
   const { tasks } = useTasks();
 
-  const openTasks = tasks.filter(({ completed }) => !completed);
-  const completedTasks = tasks.filter(({ completed }) => completed);
+  const openTasks = tasks
+    ?.filter(({ completed }) => !completed)
+    .sort((a, b) => {
+      if (a.dueDate && b.dueDate) {
+        return new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime();
+      }
+      return 0;
+    });
+
+  const completedTasks = tasks?.filter(({ completed }) => completed);
 
   return (
     <>
-      <Styled.Container>
-        <Typography variant="h3">Your Todos</Typography>
+      <Styled.PageContainer>
+        <Typography variant="h3" textTransform="uppercase" align="center">
+          Your Todos
+        </Typography>
 
         <Box mt={3} mb={2} ml={0} mr="auto">
           <Button
             onClick={() => setModalState("create")}
             startIcon={<AddCircleOutline />}
           >
-            Add task
+            Add a task
           </Button>
         </Box>
 
-        {openTasks.length > 0 ? (
-          <TaskList tasks={openTasks} />
-        ) : (
-          <Styled.NoTasksContainer>
-            <Typography variant="h3">🧘 Relax, job is done.</Typography>
-          </Styled.NoTasksContainer>
-        )}
+        <Styled.ScrollArea>
+          {openTasks?.length > 0 ? (
+            <TaskList tasks={openTasks} />
+          ) : (
+            <Box my={2}>
+              <Styled.NoTasksContainer>
+                <Typography variant="h3">🧘 Relax, job is done.</Typography>
+              </Styled.NoTasksContainer>
+            </Box>
+          )}
 
-        {completedTasks.length > 0 && (
-          <>
-            <h3>{`Completed (${completedTasks.length})`}</h3>
-            <TaskList tasks={completedTasks} />
-          </>
-        )}
-      </Styled.Container>
+          {completedTasks?.length > 0 && (
+            <>
+              <Typography
+                variant="h6"
+                gutterBottom
+                fontWeight={400}
+              >{`Completed (${completedTasks.length})`}</Typography>
+              <TaskList tasks={completedTasks} />
+            </>
+          )}
+        </Styled.ScrollArea>
+      </Styled.PageContainer>
 
       <TaskEditModal
         state={modalState}

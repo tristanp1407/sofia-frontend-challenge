@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const PageContainer = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  max-height: 100vh;
   max-width: 40rem;
-  padding: 1rem;
+  overflow: hidden;
+  /* padding: 1rem; */
 `;
 
 export const NoTasksContainer = styled.div`
@@ -14,4 +16,10 @@ export const NoTasksContainer = styled.div`
   border-radius: 1rem;
   padding: 1rem;
   text-align: center;
+`;
+
+export const ScrollArea = styled.div`
+  overflow: scroll;
+  flex-grow: 1;
+  width: 100%;
 `;

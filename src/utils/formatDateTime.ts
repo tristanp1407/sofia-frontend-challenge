@@ -5,7 +5,6 @@ export const formatDateAndTime = (
   time?: string
 ): string | null => {
   if (!date) {
-    console.error("Invalid date string provided");
     return null;
   }
 
@@ -23,10 +22,17 @@ export const formatDateAndTime = (
     return null;
   }
 
+  const timeString = time ? `, ${dateTime.toFormat("HH:mm")}` : "";
+
   const now = DateTime.now();
   const diffInDays = now
     .startOf("day")
     .diff(dateTime.startOf("day"), "days").days;
+
+  // Handle today's date
+  if (diffInDays === 0) {
+    return "Today" + timeString;
+  }
 
   // Handle past dates (yesterday, x days ago)
   if (diffInDays > 0) {
@@ -40,7 +46,6 @@ export const formatDateAndTime = (
   // Handle future dates (tomorrow)
   if (diffInDays < 0) {
     if (diffInDays === -1) {
-      let timeString = time ? `, ${dateTime.toFormat("HH:mm")}` : "";
       return "Tomorrow" + timeString;
     }
   }
